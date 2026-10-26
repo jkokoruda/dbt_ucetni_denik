@@ -1,8 +1,9 @@
 version: 2
 
+# All tables below are loaded into the dbt workspace by the transformation's input mapping.
 sources:
   - name: abra_flexi
-    description: "Tables loaded into the dbt workspace via the transformation input mapping."
+    description: "Abra Flexi raw data."
     schema: "{{ target.schema }}"
     quoting:
       database: true
@@ -11,3 +12,20 @@ sources:
     tables:
       - name: UCETNI_DENIK
         description: "in.c-abra-flexi.ucetni-denik (Abra Flexi accounting journal)"
+
+  - name: l2_input
+    description: "Mapping/config tables and the previous state of the report table from out.c-L2."
+    schema: "{{ target.schema }}"
+    quoting:
+      database: true
+      schema: true
+      identifier: true
+    tables:
+      - name: MAP_UCET_ITEM
+        description: "out.c-L2.MAP_UCET_ITEM - GL account to report item mapping"
+      - name: CFG_REPORT_ITEM
+        description: "out.c-L2.CFG_REPORT_ITEM - report item hierarchy (config)"
+      - name: REF_REPORT_ITEM
+        description: "out.c-L2.REF_REPORT_ITEM - report item hierarchy (reference)"
+      - name: RPT_UCETNI_DENIK_PREV
+        description: "out.c-L2.RPT_UCETNI_DENIK - current report table; the chain updates it in place, exactly like the original 003-007 transformations"

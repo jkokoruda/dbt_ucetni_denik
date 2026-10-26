@@ -17,3 +17,14 @@ models:
 
   - name: agg_ucetni_denik
     description: "Monthly SUM_TUZ by SOURCE, UCET, COUNTER_ACCOUNT, STREDISKO, ZAKAZKA, CINNOST. Port of 002-Aggregate ucetni denik."
+
+  - name: rpt_ucetni_denik_003
+    description: "Step 1 of the report chain - port of 003-Populate RPT_UCETNI_DENIK (base metrics, parent roll-up, calculated P&L metrics)."
+  - name: rpt_ucetni_denik_004
+    description: "Step 2 - port of 004- Recalculate tax in RPT (pnl_calc_tax, pnl_calc_eat)."
+  - name: rpt_ucetni_denik_005
+    description: "Step 3 - port of 005-Populate RPT_UCETNI_DENIK (BS) (bs_calc_cye and balance-sheet roll-up)."
+  - name: rpt_ucetni_denik_006
+    description: "Step 4 - port of 006-populate RPT last,diff and percentage changes."
+  - name: rpt_ucetni_denik
+    description: "Final report table RPT_UCETNI_DENIK - port of 007-populate RPT with averages."
