@@ -1,0 +1,53 @@
+version: 2
+
+# Port of the "L2 table creation" flow - reference data previously inserted by SQL VALUES lists.
+# Aliases carry a SETUP_ prefix so they never collide with the tables "Test dbt" loads via input mapping;
+# the Keboola output mapping writes them to the original table names.
+seeds:
+  - name: setup_map_ucet_item
+    description: "Port of 'MAP_UCET_ITEM - create table' - GL account to report item mapping."
+    config:
+      alias: SETUP_MAP_UCET_ITEM
+      column_types:
+        UCET: VARCHAR
+        ITEM_CODE: VARCHAR
+
+  - name: setup_cfg_metric
+    description: "Port of 'CFG_METRIC - create table' - metric catalog."
+    config:
+      alias: SETUP_CFG_METRIC
+      column_types:
+        METRIC_CODE: VARCHAR
+        METRIC_NAME: VARCHAR
+        METRIC_DESCRIPTION: VARCHAR
+        METRIC_TYPE: VARCHAR
+        SORT_ORDER: NUMBER(18,0)
+        FORMULA: VARCHAR
+        FORMAT_TYPE: VARCHAR
+        SIGN_CONVENTION: NUMBER(18,0)
+        DECIMAL_PLACES: NUMBER(18,0)
+
+  - name: setup_ref_report_item
+    description: "Port of 'REF_REPORT_ITEM - create table' - report item hierarchy, plus the cf_* cash-flow items present in production."
+    config:
+      alias: SETUP_REF_REPORT_ITEM
+      column_types:
+        ITEM_NAME: VARCHAR
+        ITEM_CODE: VARCHAR
+        PARENT_CODE: VARCHAR
+        IS_LEAF: BOOLEAN
+        ITEM_LEVEL: NUMBER(18,0)
+        SORT_ORDER: NUMBER(18,0)
+        REPORT_CODE: VARCHAR
+
+  - name: setup_cfg_report_item
+    description: "Port of 'CFG_REPORT_ITEM - create table' - configurable report items, plus the cf_* cash-flow items present in production."
+    config:
+      alias: SETUP_CFG_REPORT_ITEM
+      column_types:
+        ITEM_NAME: VARCHAR
+        ITEM_CODE: VARCHAR
+        PARENT_CODE: VARCHAR
+        ITEM_LEVEL: NUMBER(18,0)
+        SORT_ORDER: NUMBER(18,0)
+        REPORT_CODE: VARCHAR

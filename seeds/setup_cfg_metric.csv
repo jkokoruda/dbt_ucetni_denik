@@ -1,0 +1,24 @@
+METRIC_CODE,METRIC_NAME,METRIC_DESCRIPTION,METRIC_TYPE,SORT_ORDER,FORMULA,FORMAT_TYPE,SIGN_CONVENTION,DECIMAL_PLACES
+pnl_calc_tax_rate,Dan z prijmu,,CONSTANT,,0.21,PERCENT,1,2
+pnl_calc_gp,HRUBÝ ZISK,,FORMULA,2,pnl_calc_rev + pnl_calc_cor,CURRENCY,1,2
+pnl_calc_rev,VÝNOSY,,AGGREGATION,1,,CURRENCY,1,2
+pnl_calc_cor,PŘÍMÉ NÁKLADY,,AGGREGATION,1,,CURRENCY,-1,2
+pnl_calc_gm,Hrubá marže %,,FORMULA,3,pnl_calc_gp / pnl_calc_rev,PERCENT,1,3
+pnl_calc_opex,PROVOZNÍ NÁKLADY,,AGGREGATION,1,,CURRENCY,1,2
+pnl_calc_ebitda,EBITDA,,FORMULA,4,pnl_calc_gp  + pnl_calc_opex,CURRENCY,1,2
+pnl_calc_ebit,EBIT,,FORMULA,5,pnl_calc_ebitda + pnl_exp_depr,CURRENCY,1,2
+pnl_exp_depr,Odpisy,,AGGREGATION,1,,CURRENCY,-1,2
+pnl_calc_ebitm,EBIT marže %,,FORMULA,6,pnl_calc_ebit / pnl_calc_rev,PERCENT,1,3
+pnl_calc_fp,FINANČNÍ VH,,AGGREGATION,1,,CURRENCY,1,2
+pnl_calc_ebt,EBT (zisk před daní),,FORMULA,7,pnl_calc_ebit + pnl_calc_fp,CURRENCY,1,2
+pnl_calc_tax,Daň z příjmů (est.),,FORMULA,8,"MIN(pnl_calc_ebt * -pnl_calc_tax_rate, 0)",CURRENCY,-1,2
+pnl_calc_eat,ČISTÝ ZISK (EAT),,FORMULA,9,pnl_calc_ebt + pnl_calc_tax,CURRENCY,1,2
+mtr_cash_balance,Cash / bankovni zustatek,,AGGREGATION,1,bs_cura_cash.ytd,CURRENCY,1,2
+bs_cura_ar,Pohledavky z obchodního styku,,AGGREGATION,1,,CURRENCY,1,2
+bs_lia_ap,Závazky z obchodního styku,,AGGREGATION,1,,CURRENCY,-1,2
+mtr_rev12avg,12 Mesicni prumer trzeb,,AGGREGATION,10,,CURRENCY,1,2
+mtr_cor12avg,12 Mesicni prumer COR,,AGGREGATION,12,,CURRENCY,-1,2
+mtr_dso_days,DSO (dny),,FORMULA,11,bs_cura_ar/mtr_rev12avg,NUMBER,1,1
+mtr_dpo_days,DPO (dny),,FORMULA,13,bs_lia_ap/mtr_cor12avg,NUMBER,1,1
+mtr_opexrev,Fixní náklady / Tržby %,,FORMULA,14,,PERCENT,1,3
+mtr_cashdiff,Net Cash Burn (z diff zustatku na uctu),,FORMULA,,bs_cura_cash.diff,CURRENCY,1,2

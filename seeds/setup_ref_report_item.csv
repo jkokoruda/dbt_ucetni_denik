@@ -1,0 +1,59 @@
+ITEM_NAME,ITEM_CODE,PARENT_CODE,IS_LEAF,ITEM_LEVEL,SORT_ORDER,REPORT_CODE
+VÝNOSY,pnl_calc_rev,,false,1,1,PL
+Ostatní provozní výnosy,pnl_inc_oi,pnl_calc_rev,true,2,2,PL
+PŘÍMÉ NÁKLADY,pnl_calc_cor,,false,1,3,PL
+HRUBÝ ZISK,pnl_calc_gp,,true,1,4,PL
+Hrubá marže %,pnl_calc_gm,pnl_calc_gp,true,2,5,PL
+PROVOZNÍ NÁKLADY (OPEX),pnl_calc_opex,,false,1,6,PL
+Ostatní provozní náklady,pnl_exp_prov,pnl_calc_opex,true,2,7,PL
+EBITDA,pnl_calc_ebitda,,true,1,8,PL
+Odpisy,pnl_exp_depr,,true,1,9,PL
+EBIT,pnl_calc_ebit,,false,1,10,PL
+EBIT marže %,pnl_calc_ebitm,pnl_calc_ebit,true,2,11,PL
+FINANČNÍ NÁKLADY / VÝNOSY,pnl_calc_fp,,false,1,12,PL
+EBT (zisk před daní),pnl_calc_ebt,,false,1,13,PL
+Daň z příjmů (est.),pnl_calc_tax,pnl_calc_ebt,true,2,14,PL
+ČISTÝ ZISK (EAT),pnl_calc_eat,,true,1,15,PL
+AKTÍVA,bs_calc_ass,,true,1,1,BS
+DLOUHODOBÝ MAJETEK,bs_calc_ltass,bs_calc_ass,false,1,2,BS
+Hmotný majetek a nehmotny (brutto),bs_lta_dm,bs_calc_ltass,true,2,3,BS
+Oprávky (kumulované odpisy),bs_lta_dmk,bs_calc_ltass,true,2,4,BS
+Majetek (netto),bs_calc_ltassetsnetto,bs_calc_ltass,true,2,5,BS
+Finanční investice,bs_lta_dfin,bs_calc_ltass,true,2,6,BS
+OBĚŽNÁ AKTIVA,bs_calc_curass,bs_calc_ass,false,1,7,BS
+Zásoby,bs_cura_inv,bs_calc_curass,true,2,8,BS
+Pohledávky z obchodního styku,bs_cura_ar,bs_calc_curass,true,2,9,BS
+Ostatní pohledávky,bs_cura_or,bs_calc_curass,true,2,10,BS
+Peněžní prostředky (banka + pokladna),bs_cura_cash,bs_calc_curass,true,2,11,BS
+OSTATNÍ AKTÍVA,bs_oth_ass,bs_calc_ass,true,1,12,BS
+PASÍVA,bs_calc_equlia,,true,1,13,BS
+VLASTNÍ KAPITÁL,bs_calc_equ,bs_calc_equlia,false,1,14,BS
+Základní kapitál,bs_equ_rc,bs_calc_equ,true,2,15,BS
+Ostatní kapitálové fondy,bs_equ_ocf,bs_calc_equ,true,2,16,BS
+Nerozdělený zisk minulých let,bs_equ_rp,bs_calc_equ,true,2,17,BS
+Výsledek VH ve schalování,bs_equ_lye,bs_calc_equ,true,2,18,BS
+Výsledek HČ běžného období,bs_calc_cye,bs_calc_equ,true,2,19,BS
+CIZÍ ZDROJE,bs_calc_lia,bs_calc_equlia,false,1,20,BS
+Uvěry (dl.),bs_lia_lbor,bs_calc_lia,true,2,21,BS
+Uvěry (kr.),bs_lia_sbor,bs_calc_lia,true,2,22,BS
+Závazky z obchodního styku,bs_lia_ap,bs_calc_lia,true,2,23,BS
+Závazky vůči zaměstnancům,bs_lia_emp,bs_calc_lia,true,2,24,BS
+"Závazky vůči státu (daně, ZP/SP)",bs_lia_gov,bs_calc_lia,true,2,25,BS
+Ostatní závazky,bs_lia_oap,bs_calc_lia,true,2,26,BS
+OSTATNÍ PASÍVA,bs_oth_equlia,bs_calc_equlia,true,1,27,BS
+A. PROVOZNÍ CASH FLOW (OCF),cf_calc_ocf,,true,1,1,CF
+PROVOZNÍ PŘÍJMY,cf_calc_oci,cf_calc_ocf,false,2,2,CF
+Inkaso pohledavek na ucet,cf_ocf_ar,cf_calc_oci,true,2,3,CF
+Ostatní provozní příjmy (penezni),cf_ocf_or,cf_calc_oci,true,2,4,CF
+PROVOZNÍ VÝDAJE,cf_calc_oco,cf_calc_ocf,true,2,5,CF
+Uhrada obchodnich zavazku,cf_ocf_ap,cf_calc_oco,true,2,6,CF
+Ostatní provozní výdaje,cf_ocf_oth,cf_calc_oco,true,2,8,CF
+B. INVESTIČNÍ CASH FLOW,cf_calc_icf,,true,1,11,CF
+Nákup DHM / DNM,cf_icf_ltai,cf_calc_icf,true,2,12,CF
+Příjmy z prodeje majetku,cf_icf_ltao,cf_calc_icf,true,2,13,CF
+C. FINANČNÍ CASH FLOW,cf_calc_fcf,,true,1,14,CF
+Přijaté bankovní úvěry,cf_fcf_loan,cf_calc_fcf,true,2,15,CF
+ Splátky bankovních úvěrů (z Rozvahy),cf_fcf_inst,cf_calc_fcf,true,2,16,CF
+ČISTÁ ZMĚNA CASH,cf_calc_nch,,true,1,19,CF
+Počáteční stav peněžních prostředků,cf_calc_obal,,true,1,20,CF
+KONEČNÝ STAV PENĚŽNÍCH PROSTŘEDKŮ,cf_calc_ebal,,true,1,21,CF

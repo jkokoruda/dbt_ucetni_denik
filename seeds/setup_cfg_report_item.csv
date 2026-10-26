@@ -1,0 +1,17 @@
+ITEM_NAME,ITEM_CODE,PARENT_CODE,ITEM_LEVEL,SORT_ORDER,REPORT_CODE
+Tržby za služby,pnl_inc_rev,pnl_calc_rev,2,1,PL
+Tržby za SaaS,pnl_inc_saas,pnl_calc_rev,2,2,PL
+Nákup zboží / materiálu,pnl_exp_cor,pnl_calc_cor,2,3,PL
+Nákup SaaS,pnl_exp_exsaas,pnl_calc_cor,2,4,PL
+Přímé mzdové náklady,pnl_exp_cogemp,pnl_calc_cor,2,5,PL
+Osobní náklady (mzdy + odvody),pnl_exp_emp,pnl_calc_opex,2,6,PL
+Nájemné a energie,pnl_exp_leas,pnl_calc_opex,2,7,PL
+Marketing a reklama,pnl_exp_mkt,pnl_calc_opex,2,8,PL
+IT a software,pnl_exp_it,pnl_calc_opex,2,9,PL
+Úroky placené,pnl_inc_inter,pnl_calc_fp,2,10,PL
+Úroky přijaté,pnl_exp_inter,pnl_calc_fp,2,11,PL
+Mzdové výdaje (čisté mzdy + odvody),cf_ocf_emp,cf_calc_oco,2,7,CF
+Zaplacená daň z příjmů,cf_ocf_gov,cf_calc_oco,2,9,CF
+Uprava o investicni vydaje,cf_ocf_corr,cf_calc_oco,2,10,CF
+Výplata dividend / podílů,cf_fcf_div,cf_calc_fcf,2,17,CF
+Vklady vlastníků,cf_fcf_shld,cf_calc_fcf,2,18,CF

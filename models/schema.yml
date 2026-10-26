@@ -28,3 +28,10 @@ models:
     description: "Step 4 - port of 006-populate RPT last,diff and percentage changes."
   - name: rpt_ucetni_denik
     description: "Final report table RPT_UCETNI_DENIK - port of 007-populate RPT with averages."
+
+  - name: setup_stg_ucetni_denik
+    description: "Setup - empty STG_UCETNI_DENIK (port of 'STG_UCETNI_DENIK - create table')."
+  - name: setup_agg_ucetni_denik
+    description: "Setup - empty AGG_UCETNI_DENIK (port of 'AGG_UCETNI_DENIK - create table')."
+  - name: setup_rpt_ucetni_denik
+    description: "Setup - empty RPT_UCETNI_DENIK (port of 'RPT_UCETNI_DENIK - create table (DDL)')."

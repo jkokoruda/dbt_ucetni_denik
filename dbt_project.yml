@@ -5,15 +5,33 @@ config-version: 2
 profile: 'default'
 
 model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
 target-path: "target"
 clean-targets: ["target", "dbt_packages"]
 
-# Keep exact (upper-case) table names so the output mapping matches
+# Keep exact (upper-case) table names so the Keboola output mapping matches
 quoting:
   database: true
   schema: true
   identifier: true
 
+# One repo, two Keboola dbt transformations - each selects its own tag:
+#   "Test dbt"            -> dbt run --select tag:pipeline
+#   "DBT table creation"  -> dbt seed --select tag:setup  +  dbt run --select tag:setup
 models:
   ucetni_denik:
     +materialized: table
+    staging:
+      +tags: ['pipeline']
+    marts:
+      +tags: ['pipeline']
+    reporting:
+      +tags: ['pipeline']
+    setup:
+      +tags: ['setup']
+
+seeds:
+  ucetni_denik:
+    +tags: ['setup']
+    +quote_columns: true
