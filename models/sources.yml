@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: abra_flexi
+    description: "Tables loaded into the dbt workspace via the transformation input mapping."
+    schema: "{{ target.schema }}"
+    quoting:
+      database: true
+      schema: true
+      identifier: true
+    tables:
+      - name: UCETNI_DENIK
+        description: "in.c-abra-flexi.ucetni-denik (Abra Flexi accounting journal)"

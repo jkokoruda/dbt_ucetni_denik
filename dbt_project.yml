@@ -1,0 +1,19 @@
+name: 'ucetni_denik'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+# Keep exact (upper-case) table names so the output mapping matches
+quoting:
+  database: true
+  schema: true
+  identifier: true
+
+models:
+  ucetni_denik:
+    +materialized: table

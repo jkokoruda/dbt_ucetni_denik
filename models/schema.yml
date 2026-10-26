@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_ucetni_denik
+    description: "Accounting journal split into MD (debit, negated) and DAL (credit) rows. Port of 001-Normalize ucetni-denik."
+    columns:
+      - name: PK_UCETNI_DENIK
+        quote: true
+        tests:
+          - unique
+          - not_null
+      - name: SOURCE
+        quote: true
+        tests:
+          - accepted_values:
+              values: ['MD', 'DAL']
+
+  - name: agg_ucetni_denik
+    description: "Monthly SUM_TUZ by SOURCE, UCET, COUNTER_ACCOUNT, STREDISKO, ZAKAZKA, CINNOST. Port of 002-Aggregate ucetni denik."
