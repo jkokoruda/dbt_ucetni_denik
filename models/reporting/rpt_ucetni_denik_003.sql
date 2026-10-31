@@ -13,9 +13,9 @@
  * run on it in the original order (see macros/rpt/).
  */
 
--- depends_on: {{ ref('agg_ucetni_denik') }}
-
 -- Start from the current report table (same state the original 003 reads).
+-- AGG_UCETNI_DENIK is a source loaded by input mapping, not a ref, so this tag
+-- does not rebuild the aggregate step.
 SELECT
     CAST("METRIC_CODE" AS VARCHAR) AS "METRIC_CODE",
     CAST("PERIOD" AS DATE) AS "PERIOD",

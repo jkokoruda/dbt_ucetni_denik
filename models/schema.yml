@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: stg_ucetni_denik
-    description: "Accounting journal split into MD (debit, negated) and DAL (credit) rows. Port of 001-Normalize ucetni-denik."
+    description: "normalize_ud. Accounting journal split into MD (debit, negated) and DAL (credit) rows. Port of 001-Normalize ucetni-denik."
     columns:
       - name: PK_UCETNI_DENIK
         quote: true
@@ -16,10 +16,10 @@ models:
               values: ['MD', 'DAL']
 
   - name: agg_ucetni_denik
-    description: "Monthly SUM_TUZ by SOURCE, UCET, COUNTER_ACCOUNT, STREDISKO, ZAKAZKA, CINNOST. Port of 002-Aggregate ucetni denik."
+    description: "aggregate_stg. Monthly SUM_TUZ by SOURCE, UCET, COUNTER_ACCOUNT, STREDISKO, ZAKAZKA, CINNOST from source STG_UCETNI_DENIK. Port of 002-Aggregate ucetni denik."
 
   - name: rpt_ucetni_denik_003
-    description: "Step 1 of the report chain - port of 003-Populate RPT_UCETNI_DENIK (base metrics, parent roll-up, calculated P&L metrics)."
+    description: "rpt step 1 - port of 003-Populate RPT_UCETNI_DENIK (base metrics from source AGG_UCETNI_DENIK, parent roll-up, calculated P&L metrics)."
   - name: rpt_ucetni_denik_004
     description: "Step 2 - port of 004- Recalculate tax in RPT (pnl_calc_tax, pnl_calc_eat)."
   - name: rpt_ucetni_denik_005
@@ -30,8 +30,26 @@ models:
     description: "Final report table RPT_UCETNI_DENIK - port of 007-populate RPT with averages."
 
   - name: setup_stg_ucetni_denik
-    description: "Setup - empty STG_UCETNI_DENIK (port of 'STG_UCETNI_DENIK - create table')."
+    description: "create_tables - empty STG_UCETNI_DENIK (port of 'STG_UCETNI_DENIK - create table')."
   - name: setup_agg_ucetni_denik
-    description: "Setup - empty AGG_UCETNI_DENIK (port of 'AGG_UCETNI_DENIK - create table')."
+    description: "create_tables - empty AGG_UCETNI_DENIK (port of 'AGG_UCETNI_DENIK - create table')."
   - name: setup_rpt_ucetni_denik
-    description: "Setup - empty RPT_UCETNI_DENIK (port of 'RPT_UCETNI_DENIK - create table (DDL)')."
+    description: "create_tables - empty RPT_UCETNI_DENIK, including SUM_AVG3M, SUM_AVG6M, and SUM_AVG12M."
+  - name: setup_map_ucet_item_ddl
+    description: "create_tables - empty MAP_UCET_ITEM. UCET and ITEM_CODE are NOT NULL, primary key (UCET, ITEM_CODE). Data is not seeded."
+  - name: setup_ps_ucetni_denik
+    description: "create_tables - empty PS_UCETNI_DENIK. UCET, DAT_UCTO, and SUM_TUZ are NOT NULL, primary key (UCET, DAT_UCTO)."
+
+  - name: initiate_stg_ucetni_denik
+    description: "initiate_stg. Drops STG rows on or before the latest PS balance date and appends opening balances from PS_UCETNI_DENIK. Output alias OUT_STG_UCETNI_DENIK is mapped back to STG_UCETNI_DENIK."
+    columns:
+      - name: PK_UCETNI_DENIK
+        quote: true
+        tests:
+          - unique
+          - not_null
+      - name: SOURCE
+        quote: true
+        tests:
+          - accepted_values:
+              values: ['MD', 'DAL', 'PS']

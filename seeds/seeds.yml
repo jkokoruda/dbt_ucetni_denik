@@ -1,12 +1,14 @@
 version: 2
 
 # Port of the "L2 table creation" flow - reference data previously inserted by SQL VALUES lists.
-# Aliases carry a SETUP_ prefix so they never collide with the tables "Test dbt" loads via input mapping;
+# Aliases carry a SETUP_ prefix so they never collide with tables loaded via input mapping;
 # the Keboola output mapping writes them to the original table names.
+# seed_tables loads CFG and REF only. MAP_UCET_ITEM stays an external source.
 seeds:
   - name: setup_map_ucet_item
-    description: "Port of 'MAP_UCET_ITEM - create table' - GL account to report item mapping."
+    description: "Disabled. MAP_UCET_ITEM is maintained outside this project and loaded as a source."
     config:
+      enabled: false
       alias: SETUP_MAP_UCET_ITEM
       column_types:
         UCET: VARCHAR
@@ -15,6 +17,7 @@ seeds:
   - name: setup_cfg_metric
     description: "Port of 'CFG_METRIC - create table' - metric catalog."
     config:
+      tags: ['seed_tables']
       alias: SETUP_CFG_METRIC
       column_types:
         METRIC_CODE: VARCHAR
@@ -30,6 +33,7 @@ seeds:
   - name: setup_ref_report_item
     description: "Port of 'REF_REPORT_ITEM - create table' - report item hierarchy, plus the cf_* cash-flow items present in production."
     config:
+      tags: ['seed_tables']
       alias: SETUP_REF_REPORT_ITEM
       column_types:
         ITEM_NAME: VARCHAR
@@ -43,6 +47,7 @@ seeds:
   - name: setup_cfg_report_item
     description: "Port of 'CFG_REPORT_ITEM - create table' - configurable report items, plus the cf_* cash-flow items present in production."
     config:
+      tags: ['seed_tables']
       alias: SETUP_CFG_REPORT_ITEM
       column_types:
         ITEM_NAME: VARCHAR

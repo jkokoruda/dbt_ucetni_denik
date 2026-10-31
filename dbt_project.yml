@@ -1,4 +1,4 @@
-name: 'ucetni_denik'
+name: 'vcfo_dbt_scripts'
 version: '1.0.0'
 config-version: 2
 
@@ -16,22 +16,28 @@ quoting:
   schema: true
   identifier: true
 
-# One repo, two Keboola dbt transformations - each selects its own tag:
-#   "Test dbt"            -> dbt run --select tag:pipeline
-#   "DBT table creation"  -> dbt seed --select tag:setup  +  dbt run --select tag:setup
+# One repo, six Keboola dbt transformations - each selects its own tag.
+# Cross-step tables are sources (input mapping), so a tag never rebuilds another step.
+#   create tables   -> dbt run  --select tag:create_tables
+#   seed tables     -> dbt seed --select tag:seed_tables
+#   normalize UD    -> dbt run  --select tag:normalize_ud
+#   initiate STG    -> dbt run  --select tag:initiate_stg
+#   aggregate STG   -> dbt run  --select tag:aggregate_stg
+#   RPT             -> dbt run  --select tag:rpt
 models:
-  ucetni_denik:
+  vcfo_dbt_scripts:
     +materialized: table
-    staging:
-      +tags: ['pipeline']
-    marts:
-      +tags: ['pipeline']
-    reporting:
-      +tags: ['pipeline']
     setup:
-      +tags: ['setup']
+      +tags: ['create_tables']
+    staging:
+      +tags: ['normalize_ud']
+    initiate:
+      +tags: ['initiate_stg']
+    marts:
+      +tags: ['aggregate_stg']
+    reporting:
+      +tags: ['rpt']
 
 seeds:
-  ucetni_denik:
-    +tags: ['setup']
+  vcfo_dbt_scripts:
     +quote_columns: true

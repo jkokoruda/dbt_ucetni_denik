@@ -36,9 +36,9 @@ USING (
         "AGUD"."PERIOD"                                         AS "PERIOD",
         CAST(CEIL(MONTH("AGUD"."PERIOD") / 3) AS NUMBER(1, 0)) AS "QUARTER",
         YEAR("AGUD"."PERIOD")                                   AS "YEAR",
-        "AGUD"."STREDISKO"                                      AS "STREDISKO",
-        "AGUD"."ZAKAZKA"                                        AS "ZAKAZKA",
-        "AGUD"."CINNOST"                                        AS "CINNOST",
+        COALESCE("AGUD"."STREDISKO", '')                           AS "STREDISKO",
+        COALESCE("AGUD"."ZAKAZKA", '')                             AS "ZAKAZKA",
+        COALESCE("AGUD"."CINNOST", '')                             AS "CINNOST",
         CAST(
             SUM(
                 CASE
@@ -48,7 +48,7 @@ USING (
                 END
             ) AS NUMBER(18, 6)
         )                                                       AS "SUM_PM"
-    FROM {{ ref('agg_ucetni_denik') }} AS "AGUD"
+    FROM {{ source('l2_input', 'AGG_UCETNI_DENIK') }} AS "AGUD"
     INNER JOIN {{ source('l2_input', 'MAP_UCET_ITEM') }} AS "MUI"
         ON "AGUD"."UCET" = "MUI"."UCET"
     WHERE "MUI"."ITEM_CODE" IS NOT NULL

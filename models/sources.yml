@@ -14,18 +14,24 @@ sources:
         description: "in.c-abra-flexi.ucetni-denik (Abra Flexi accounting journal)"
 
   - name: l2_input
-    description: "Mapping/config tables and the previous state of the report table from out.c-L2."
+    description: "Tables loaded into the dbt workspace by the current transformation's input mapping. Each tag reads only the tables that step needs."
     schema: "{{ target.schema }}"
     quoting:
       database: true
       schema: true
       identifier: true
     tables:
+      - name: STG_UCETNI_DENIK
+        description: "Storage STG_UCETNI_DENIK. Input to initiate_stg (journal to cut off) and aggregate_stg."
+      - name: PS_UCETNI_DENIK
+        description: "Opening balances. Input to initiate_stg. Columns used: UCET, DAT_UCTO, SUM_TUZ."
+      - name: AGG_UCETNI_DENIK
+        description: "Storage AGG_UCETNI_DENIK. Input to the RPT transformation."
       - name: MAP_UCET_ITEM
-        description: "out.c-L2.MAP_UCET_ITEM - GL account to report item mapping"
+        description: "out.c-L2.MAP_UCET_ITEM - GL account to report item mapping. External input; not loaded from the map seed."
       - name: CFG_REPORT_ITEM
         description: "out.c-L2.CFG_REPORT_ITEM - report item hierarchy (config)"
       - name: REF_REPORT_ITEM
         description: "out.c-L2.REF_REPORT_ITEM - report item hierarchy (reference)"
       - name: RPT_UCETNI_DENIK_PREV
-        description: "out.c-L2.RPT_UCETNI_DENIK - current report table; the chain updates it in place, exactly like the original 003-007 transformations"
+        description: "out.c-L2.RPT_UCETNI_DENIK - current report table; the RPT chain merges into a copy of it. First run uses the empty table from create_tables."

@@ -3,6 +3,8 @@
 /*
  * dbt port of "002-Aggregate ucetni denik".
  * Monthly totals of SUM_TUZ by side, account, counter-account and dimensions.
+ * Reads source STG_UCETNI_DENIK (input mapping), so this tag does not rebuild
+ * normalize_ud or initiate_stg.
  */
 
 SELECT
@@ -14,7 +16,7 @@ SELECT
     COALESCE("STREDISKO", '')        AS "STREDISKO",
     COALESCE("ZAKAZKA", '')          AS "ZAKAZKA",
     COALESCE("CINNOST", '')          AS "CINNOST"
-FROM {{ ref('stg_ucetni_denik') }}
+FROM {{ source('l2_input', 'STG_UCETNI_DENIK') }}
 GROUP BY
     "SOURCE",
     "UCET",
